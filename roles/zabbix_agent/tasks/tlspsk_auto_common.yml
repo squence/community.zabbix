@@ -19,7 +19,7 @@
     zabbix_agent_tlspsk_secret: "{{ lookup('password', '/dev/null chars=hexdigits length=64') }}"
   when: 
     - not zabbix_agent_tlspskcheck.stat.exists
-    - zabbix_agent_tlspsk_read|length < 32
+    - ( zabbix_agent_tlspsk_read|length < 32 ) or ( zabbix_agent_tlspsk_read is undefined )
   no_log: "{{ ansible_verbosity < 3 }}"
 
 
